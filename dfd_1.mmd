@@ -1,0 +1,20 @@
+graph TD
+    User([End User]) --> |Email/Password| Auth(1.0 Auth Controller)
+    Auth --> |Returns Signed JWT| User
+    
+    Auth -.-> |Provides User Context| TM
+    Auth -.-> |Provides User Context| EM
+    
+    User --> |Trip Details & Members| TM(2.0 Trip Controller)
+    TM --> |Saves Trip Document| DB[(MongoDB)]
+    
+    User --> |Expense Details, Payers, Splits| EM(3.0 Expense Controller)
+    EM --> |Validates Sums| Val(3.1 Validation Engine)
+    Val --> |Stores Expense Document| DB
+    
+    DB --> |Pulls Raw Expenses| Rep(4.0 Report Controller)
+    Rep --> |Executes $match, $unwind, $group| Agg(4.1 Aggregation Pipeline)
+    Agg --> |Returns JSON Summary| User
+    
+    DB --> |Pulls Array Data| Set(5.0 Settlement Controller)
+    Set --> |Calculates Net Debts| User

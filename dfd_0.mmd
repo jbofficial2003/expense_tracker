@@ -1,0 +1,11 @@
+graph TD
+    User([End User / Traveler]) -- "1. Authentication Credentials" --> System[Trip Expense Tracker System]
+    User -- "2. Trip & Member Configuration" --> System
+    User -- "3. Financial Expense Inputs" --> System
+    
+    System -- "4. JWT Authentication Token" --> User
+    System -- "5. Visual Settlement Balances" --> User
+    System -- "6. Aggregated Financial Reports" --> User
+    
+    System -- "7. Encrypted Document Storage" --> DB[(MongoDB Database Cluster)]
+    DB -- "8. BSON Document Retrieval" --> System

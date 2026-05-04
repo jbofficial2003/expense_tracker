@@ -71,3 +71,20 @@ exports.getExpense = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+
+// @desc    Delete expense
+// @route   DELETE /api/expenses/:id
+// @access  Private
+exports.deleteExpense = async (req, res) => {
+  try {
+    const expense = await Expense.findById(req.params.id);
+    if (!expense) {
+      return res.status(404).json({ success: false, error: 'Expense not found' });
+    }
+    
+    await expense.deleteOne();
+    res.status(200).json({ success: true, data: {} });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};

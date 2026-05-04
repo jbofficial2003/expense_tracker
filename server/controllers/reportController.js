@@ -91,6 +91,7 @@ exports.getMyPayments = async (req, res) => {
       {
         $project: {
           _id: 1,
+          tripId: 1,
           title: 1,
           category: 1,
           date: 1,

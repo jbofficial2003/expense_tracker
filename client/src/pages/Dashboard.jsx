@@ -24,8 +24,6 @@ const Dashboard = () => {
     fetchTrips();
   }, []);
 
-  const activeTrips = trips.filter(t => t.status === 'Active');
-
   if (loading) return <p>Loading...</p>;
 
   return (
@@ -55,19 +53,6 @@ const Dashboard = () => {
           </div>
         </Link>
 
-        <Link to="/trips" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <div className="glass-card">
-            <div className="flex items-center gap-4">
-              <div style={{ background: 'rgba(16, 185, 129, 0.2)', padding: '12px', borderRadius: '12px' }}>
-                <Plane size={24} color="var(--success)" />
-              </div>
-              <div>
-                <p className="text-muted">Active Trips</p>
-                <h3>{activeTrips.length}</h3>
-              </div>
-            </div>
-          </div>
-        </Link>
         
         <Link to="/reports" style={{ textDecoration: 'none', color: 'inherit' }}>
           <div className="glass-card">
@@ -91,9 +76,6 @@ const Dashboard = () => {
             <div className="glass-card">
               <div className="flex justify-between items-center mb-4">
                 <h4>{trip.name}</h4>
-                <span style={{ fontSize: '0.8rem', padding: '4px 8px', background: trip.status === 'Active' ? 'var(--success)' : 'var(--text-muted)', borderRadius: '12px', color: 'white' }}>
-                  {trip.status}
-                </span>
               </div>
               <p className="text-muted mb-2">📍 {trip.destination}</p>
               <p className="text-muted" style={{ fontSize: '0.9rem' }}>Members: {trip.members.length}</p>

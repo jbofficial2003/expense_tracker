@@ -42,9 +42,6 @@ const Trips = () => {
             <div className="glass-card">
               <div className="flex justify-between items-center mb-4">
                 <h4>{trip.name}</h4>
-                <span style={{ fontSize: '0.8rem', padding: '4px 8px', background: trip.status === 'Active' ? 'var(--success)' : 'var(--text-muted)', borderRadius: '12px', color: 'white' }}>
-                  {trip.status}
-                </span>
               </div>
               <p className="text-muted mb-2">📍 {trip.destination}</p>
               <p className="text-muted" style={{ fontSize: '0.9rem' }}>Members: {trip.members.length}</p>

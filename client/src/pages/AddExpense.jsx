@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 
 const AddExpense = () => {
   const { id } = useParams();
@@ -12,6 +13,7 @@ const AddExpense = () => {
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('Food');
+  const [location, setLocation] = useState('');
   const [tags, setTags] = useState('');
   const [payerType, setPayerType] = useState('single');
   const [payerId, setPayerId] = useState('');
@@ -68,7 +70,7 @@ const AddExpense = () => {
         return;
       }
     }
-    
+
     // Split Logic
     let splitBetween = [];
     if (splitType === 'equal') {
@@ -96,6 +98,7 @@ const AddExpense = () => {
         title,
         amount: totalAmt,
         category,
+        location,
         tags: tags.split(',').map(t => t.trim()).filter(t => t.length > 0),
         paidBy,
         splitBetween
@@ -113,15 +116,20 @@ const AddExpense = () => {
 
   return (
     <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-      <h1 className="gradient-text mb-6">Add Expense</h1>
-      
+      <div className="flex items-center gap-4 mb-6">
+        <Link to={`/trips/${id}`} className="btn btn-secondary flex items-center gap-2" style={{ padding: '8px 12px' }}>
+          <ArrowLeft size={20} />
+        </Link>
+        <h1 className="gradient-text" style={{ margin: 0 }}>Add Expense</h1>
+      </div>
+
       <div className="glass-panel">
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label className="form-label">Expense Title</label>
             <input type="text" className="form-input" value={title} onChange={(e) => setTitle(e.target.value)} required />
           </div>
-          
+
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
             <div className="form-group">
               <label className="form-label">Amount</label>
@@ -142,12 +150,23 @@ const AddExpense = () => {
 
           <div className="form-group">
             <label className="form-label">Tags (Comma separated)</label>
-            <input 
-              type="text" 
-              className="form-input" 
-              placeholder="e.g. breakfast, airport" 
-              value={tags} 
-              onChange={e => setTags(e.target.value)} 
+            <input
+              type="text"
+              className="form-input"
+              placeholder="e.g. breakfast, airport"
+              value={tags}
+              onChange={e => setTags(e.target.value)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">Location (Optional)</label>
+            <input
+              type="text"
+              className="form-input"
+              placeholder="e.g. Times Square, JFK Airport"
+              value={location}
+              onChange={e => setLocation(e.target.value)}
             />
           </div>
 
@@ -161,7 +180,7 @@ const AddExpense = () => {
                 <input type="radio" checked={payerType === 'multiple'} onChange={() => setPayerType('multiple')} /> Multiple People
               </label>
             </div>
-            
+
             {payerType === 'single' ? (
               <select className="form-input" value={payerId} onChange={(e) => setPayerId(e.target.value)}>
                 {trip.members.map(m => (
@@ -176,11 +195,11 @@ const AddExpense = () => {
                   return (
                     <div key={mid} className="flex justify-between items-center mb-2">
                       <span>{m.name}</span>
-                      <input 
-                        type="number" 
-                        step="0.01" 
-                        className="form-input" 
-                        style={{ width: '120px', padding: '8px' }} 
+                      <input
+                        type="number"
+                        step="0.01"
+                        className="form-input"
+                        style={{ width: '120px', padding: '8px' }}
                         value={multiplePayers[mid] || ''}
                         onChange={(e) => setMultiplePayers({ ...multiplePayers, [mid]: e.target.value })}
                         placeholder="0.00"
@@ -208,11 +227,11 @@ const AddExpense = () => {
                 return (
                   <div key={mid} className="flex justify-between items-center mb-2">
                     <span>{m.name}</span>
-                    <input 
-                      type="number" 
-                      step="0.01" 
-                      className="form-input" 
-                      style={{ width: '120px', padding: '8px' }} 
+                    <input
+                      type="number"
+                      step="0.01"
+                      className="form-input"
+                      style={{ width: '120px', padding: '8px' }}
                       value={customShares[mid] || ''}
                       onChange={(e) => setCustomShares({ ...customShares, [mid]: e.target.value })}
                       placeholder="0.00"
@@ -222,7 +241,7 @@ const AddExpense = () => {
               })}
             </div>
           )}
-          
+
           <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Add Expense</button>
         </form>
       </div>

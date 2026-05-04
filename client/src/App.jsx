@@ -12,6 +12,7 @@ import TripDetails from './pages/TripDetails';
 import AddExpense from './pages/AddExpense';
 import Settlements from './pages/Settlements';
 import Reports from './pages/Reports';
+import AllExpenses from './pages/AllExpenses';
 
 const PrivateRoute = ({ children }) => {
   const { user } = useContext(AuthContext);
@@ -36,6 +37,7 @@ const AppRoutes = () => {
       <Route path="/trips" element={<PrivateRoute><Trips /></PrivateRoute>} />
       <Route path="/trips/new" element={<PrivateRoute><CreateTrip /></PrivateRoute>} />
       <Route path="/trips/:id" element={<PrivateRoute><TripDetails /></PrivateRoute>} />
+      <Route path="/trips/:id/expenses" element={<PrivateRoute><AllExpenses /></PrivateRoute>} />
       <Route path="/trips/:id/expenses/new" element={<PrivateRoute><AddExpense /></PrivateRoute>} />
       <Route path="/trips/:id/settlements" element={<PrivateRoute><Settlements /></PrivateRoute>} />
       <Route path="/reports" element={<PrivateRoute><Reports /></PrivateRoute>} />

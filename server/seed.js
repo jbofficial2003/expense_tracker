@@ -60,8 +60,7 @@ const seedData = async () => {
         { userId: users[0]._id, name: users[0].name, email: users[0].email },
         { userId: users[1]._id, name: users[1].name, email: users[1].email },
         { userId: users[2]._id, name: users[2].name, email: users[2].email }
-      ],
-      status: 'Active'
+      ]
     }));
 
     const trips = await Trip.insertMany(tripsToInsert);

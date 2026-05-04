@@ -13,7 +13,6 @@ const tripSchema = new mongoose.Schema({
     email: { type: String },
     joinedAt: { type: Date, default: Date.now }
   }],
-  status: { type: String, enum: ['Active', 'Closed'], default: 'Active' },
   createdAt: { type: Date, default: Date.now }
 });
 

@@ -1,5 +1,5 @@
 const express = require('express');
-const { getExpenses, addExpense, getExpense } = require('../controllers/expenseController');
+const { getExpenses, addExpense, getExpense, deleteExpense } = require('../controllers/expenseController');
 const { protect } = require('../middleware/auth');
 
 const router = express.Router({ mergeParams: true });
@@ -13,6 +13,7 @@ router
 
 router
   .route('/:id')
-  .get(getExpense);
+  .get(getExpense)
+  .delete(deleteExpense);
 
 module.exports = router;
